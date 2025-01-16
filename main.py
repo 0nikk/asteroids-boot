@@ -48,6 +48,13 @@ def main():
         print("Could not load explosion sound")
         explosion_sound = None
 
+    try:
+        background = pygame.image.load("assets/space_background.png").convert()
+        background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))
+    except:
+        print("Could not load background image")
+        background = None
+
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -73,7 +80,10 @@ def main():
                         asteroid.split()
                         score += 100
 
-        screen.fill("black")
+        if background:
+            screen.blit(background, (0, 0))
+        else:
+            screen.fill("black")
 
         for obj in drawable:
             obj.draw(screen)
